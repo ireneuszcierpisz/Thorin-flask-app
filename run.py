@@ -22,6 +22,16 @@ def index():   # # create a function called "index"
 # Flask expects the index.html to be at directory called templates at the same level as run.py file
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+
 if __name__ == "__main__":
     app.run(
         host=os.environ.get("IP", "0.0.0.0"),
