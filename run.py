@@ -1,7 +1,7 @@
 import os
 
 # import the Flask class
-from flask import Flask
+from flask import Flask, render_template
 
 # creates an instance of Flask class and storing it in a variable called 'app'
 # in Flask, the convention is that variable is called 'app'.
@@ -15,9 +15,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():   # # create a function called "index"
-    return "Hello, World"
+    return render_template("index.html")
+
 # When we try to browse to the root directory (as indicated by the "/"),
-# then Flask triggers the index function underneath and returns the "Hello, World" text.
+# then Flask triggers the index function underneath.
+# Flask expects the index.html to be at directory called templates at the same level as run.py file
 
 
 if __name__ == "__main__":
