@@ -1,7 +1,7 @@
 import os
 import json
-# import the Flask class
-from flask import Flask, render_template, request
+# import the Flask class and more
+from flask import Flask, render_template, request, flash
 
 # creates an instance of Flask class and storing it in a variable called 'app'
 # in Flask, the convention is that variable is called 'app'.
