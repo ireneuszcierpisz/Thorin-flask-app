@@ -2,12 +2,18 @@ import os
 import json
 # import the Flask class and more
 from flask import Flask, render_template, request, flash
+# we only want to import env, if the system can find an env.py file
+if os.path.exists("env.py"):
+    import env
 
 # creates an instance of Flask class and storing it in a variable called 'app'
 # in Flask, the convention is that variable is called 'app'.
 app = Flask(__name__)
 # The first argument of the Flask class, is the name of the application's module - our package.
 # Since we're just using a single module, we can use __name__ which is a built-in Python variable.
+
+# grab the hidden variable called SECRET_KEY which we use in env file
+app.secret_key = os.environ.get("SECRET_KEY")
 
 # the 'route' decorator tells Flask what URL should trigger the function that follows
 # a decorator is a way of wrapping functions and all functions are objects and can be passed around.
@@ -48,11 +54,18 @@ def about_member(member_name):
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
-        # access a form's data from the backend of the site (two ways of geting a value of an input)
-        print(request.form.get("name"))
-        # if the form doesn't actually have a key of 'name' then 'get("name"')' would print 'None' by default
-        print(request.form["email"])
-        # if there isn't an 'email' key on the form, instead of returning 'None', 'form["email"]' would throw an exception
+        #  access a form's data from the backend of the site
+        #  (two ways of geting a value of an input)
+        # print(request.form.get("name"))
+        #  if the form doesn't actually have a key of 'name' then
+        #  'get("name"')' would print 'None' by default
+        # print(request.form["email"])
+        #  if there isn't an 'email' key on the form,
+        #  instead of returning 'None'
+        # 'form["email"]' would throw an exception
+        #  call the Flash() function:
+        flash("Thanks {}, we have received your message!".format(
+            request.form.get("name")))
     return render_template("contact.html", page_title="Contact")
 
 
